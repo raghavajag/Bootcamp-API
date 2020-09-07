@@ -2,6 +2,7 @@ const express = require("express");
 const dotenv = require("dotenv");
 const logRequestStart = require("./middleware/logger");
 const connectDB = require("./config/db");
+const errorHandler = require("./middleware/error");
 // Load Evn
 dotenv.config({ path: "./config/config.env" });
 
@@ -18,6 +19,7 @@ app.use(logRequestStart);
 // Routes
 app.use("/api/v1/bootcamps", require("./routes/bootcamps"));
 
+app.use(errorHandler);
 const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(
